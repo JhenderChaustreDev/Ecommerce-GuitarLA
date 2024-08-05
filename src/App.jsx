@@ -9,6 +9,10 @@ function App() {
 
   const [cart, setCart] = useState([])
 
+  const maxItem = 5
+
+  const minItem= 1
+
   function addToCart(item) {
     const itemExist = cart.findIndex(guitar => guitar.id === item.id)
     if (itemExist >= 0) {
@@ -27,7 +31,7 @@ function App() {
 
   function increaseQuantity (id) {
     const updatedCart = cart.map (item =>{
-      if (item.id ===id && item.quantity < 5
+      if (item.id ===id && item.quantity < maxItem
        ) {
         return {
           ...item, quantity: item.quantity + 1
@@ -40,7 +44,7 @@ function App() {
 
   function decreaseQuantity (id){
     const updatedCart = cart.map (item =>{
-      if (item.id ===id && item.quantity > 1) {
+      if (item.id ===id && item.quantity > minItem) {
         return {
           ...item, quantity: item.quantity - 1
         }
@@ -50,6 +54,10 @@ function App() {
     setCart(updatedCart)
   }
 
+  function clearCart () {
+    setCart ([])
+  }
+
   return (
     <>
       <Header
@@ -57,6 +65,7 @@ function App() {
         removeFromCart={removeFromCart}
         increaseQuantity={increaseQuantity}
         decreaseQuantity={decreaseQuantity}
+        clearCart={clearCart}
       />
 
 
